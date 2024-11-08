@@ -1,5 +1,6 @@
 package com.ritikjha.reviewMicroservice.controllers;
 
+import com.ritikjha.reviewMicroservice.messaging.ReviewMessageProducer;
 import com.ritikjha.reviewMicroservice.modals.Review;
 import com.ritikjha.reviewMicroservice.services.ReviewService;
 import org.springframework.http.HttpStatus;
@@ -13,9 +14,11 @@ import java.util.List;
 public class ReviewController {
 
     private final ReviewService reviewService;
+    private final ReviewMessageProducer reviewMessageProducer;
 
-    public ReviewController(ReviewService reviewService){
+    public ReviewController(ReviewService reviewService, ReviewMessageProducer reviewMessageProducer) {
         this.reviewService = reviewService;
+        this.reviewMessageProducer = reviewMessageProducer;
     }
 
     @GetMapping("/all")
@@ -24,8 +27,9 @@ public class ReviewController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<String> addReview(@RequestParam Long companyId, @RequestBody Review review) {
-        if(reviewService.addReview(companyId,review)){
+    public ResponseEntity<String> addReview(@RequestBody Review review) {
+        if(reviewService.addReview(review.getCompanyId(),review)){
+            reviewMessageProducer.sendMessage(review);
             return new ResponseEntity<>("Review added successfully",HttpStatus.CREATED);
         }
         return new ResponseEntity<>("Company not found",HttpStatus.NOT_FOUND);

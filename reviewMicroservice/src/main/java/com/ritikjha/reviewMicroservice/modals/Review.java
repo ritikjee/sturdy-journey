@@ -20,6 +20,13 @@ public class Review {
     public Review() {
     }
 
+    public Review(String title, String description, int rating, long companyId) {
+        this.title = title;
+        this.description = description;
+        this.rating = rating;
+        this.companyId = companyId;
+    }
+
 
     public Long getId() {
         return id;

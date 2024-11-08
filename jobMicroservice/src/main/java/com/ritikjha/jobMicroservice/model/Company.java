@@ -13,6 +13,8 @@ public class Company {
     private Long id;
     private String name;
     private String description;
+    private int averageRating;
+    private int ratingCount;
 
 
     public Company() {
@@ -42,5 +44,19 @@ public class Company {
         this.description = description;
     }
 
+    public int getAverageRating() {
+        return averageRating;
+    }
 
+    public void setAverageRating(int averageRating) {
+        this.averageRating = averageRating;
+    }
+
+    public int getRatingCount() {
+        return ratingCount;
+    }
+
+    public void setRatingCount(int ratingCount) {
+        this.ratingCount = ratingCount;
+    }
 }

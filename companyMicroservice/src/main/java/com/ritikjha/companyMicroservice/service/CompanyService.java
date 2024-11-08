@@ -1,5 +1,6 @@
 package com.ritikjha.companyMicroservice.service;
 
+import com.ritikjha.companyMicroservice.dto.ReviewMessage;
 import com.ritikjha.companyMicroservice.modal.Company;
 import com.ritikjha.companyMicroservice.repo.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,5 +50,9 @@ public class CompanyService {
 
     public Company getCompanyById(Long id) {
         return companyRepository.findById(id).orElse(null);
+    }
+
+    public void updateCompany(ReviewMessage reviewMessage) {
+
     }
 }
