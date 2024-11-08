@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   postgres:
@@ -22,7 +22,7 @@ services:
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
-      PGADMIN_CONFIG_SERVER_MODE: 'False'
+      PGADMIN_CONFIG_SERVER_MODE: "False"
     volumes:
       - pgadmin_data:/var/lib/pgadmin
     ports:
@@ -33,6 +33,14 @@ services:
       - postgres
     restart: unless-stopped
 
+  zipkin:
+    container_name: zipkin_container
+    image: openzipkin/zipkin
+    ports:
+      - "9411:9411"
+    networks:
+      - postgres_network
+
 networks:
   postgres_network:
     driver: bridge
@@ -40,4 +48,3 @@ networks:
 volumes:
   postgres_data:
   pgadmin_data:
-
